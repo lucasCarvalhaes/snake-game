@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 body {
@@ -18,7 +19,7 @@ header {
 h1 {
     color: black;
     padding: 20px 0 20px 0;
-    font-size: 2.0rem;
+    font-size: 1.8rem;
 }
 
 #snake {
@@ -27,13 +28,32 @@ h1 {
     box-shadow: 0 0 10px 10px rgba(50, 50, 50, 0.1);
 }
 
-header div {
+.score {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-size: 0.9rem;
 }
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+    padding: 0 3px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+}
+
+.menu label {
+    padding: 0 10px;
+}
+
+.menu label input {}
 
 #score {
     padding-left: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    font-size: 1.3rem;
 }

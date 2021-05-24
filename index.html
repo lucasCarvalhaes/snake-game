@@ -16,12 +16,17 @@
     <main>
         <header>
             <h1>SNAKE!</h1>
-            <div>
+            <nav class="menu">
+                <label for="fast">fast<input type="radio" value="fast" name="speed" id="fast"></label>
+                <label for="medium">medium<input type="radio" value="medium" name="speed" id="medium"></label>
+                <label for="slow">slow<input type="radio" value="slow" name="speed" id="slow"></label>
+            </nav>
+            <div class="score">
                 <p>Score: </p>
-                <span id="score">110</span>
+                <span id="score">0</span>
             </div>
         </header>
-        <canvas id="snake" width="576" height="576"></canvas>
+        <canvas id="snake" width="576" height="576" tabindex=-1></canvas>
     </main>
 </body>
 

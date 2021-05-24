@@ -1,3 +1,9 @@
+const SPEEDS = {
+    FAST: 100,
+    MEDIUM: 150,
+    SLOW: 200
+}
+
 let canvas = document.getElementById('snake')
 let context = canvas.getContext('2d')
 let box = 32
@@ -30,6 +36,20 @@ function createFood() {
     context.fillRect(food.x, food.y, box, box)
 }
 
+function getSpeed() {
+    const options = document.querySelectorAll('.menu label input')
+    let speed = 'medium'
+    for (const opt of options) {
+        opt.addEventListener('click', restart)
+        if (opt.checked) {
+            speed = opt.value
+        }
+    }
+    if (speed == 'fast') return SPEEDS.FAST
+    if (speed == 'medium') return SPEEDS.MEDIUM
+    if (speed == 'slow') return SPEEDS.SLOW
+}
+
 document.addEventListener('keydown', updateDirection)
 
 function updateDirection(event) {
@@ -39,7 +59,7 @@ function updateDirection(event) {
     if (event.keyCode == 40 && direction != 'down') direction = 'up'
 }
 
-function starGame() {
+function startGame() {
     if (snake[0].x > 17 * box && direction == "right") snake[0].x = 0
     if (snake[0].x < 0 && direction == "left") snake[0].x = 18 * box
     if (snake[0].y > 17 * box && direction == "up") snake[0].y = 0
@@ -48,7 +68,7 @@ function starGame() {
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo)
-            const finalScore = document.querySelector('#score p').innerText
+            const finalScore = document.querySelector('#score').innerText
             alert(`GAME OVER!!!\nHere's your final score: ${finalScore}. °O°`)
         }
     }
@@ -76,4 +96,10 @@ function starGame() {
     snake.unshift({ x: snakeX, y: snakeY })
 }
 
-let jogo = setInterval(starGame, 200)
+function restart() {
+    document.getElementById('snake').focus()
+    clearInterval(jogo)
+    setInterval(startGame, getSpeed())
+}
+
+jogo = setInterval(startGame, getSpeed())
