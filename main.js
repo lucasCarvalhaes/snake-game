@@ -7,25 +7,25 @@ snake[0] = {
     y: 8 * box
 }
 let food = {
-    x: Math.floor(Math.random() * 15 + 1) * box,
-    y: Math.floor(Math.random() * 15 + 1) * box
+    x: Math.floor(Math.random() * 17 + 1) * box,
+    y: Math.floor(Math.random() * 17 + 1) * box
 }
 let direction = 'right'
 
 function createBG() {
-    context.fillStyle = "#505050";
-    context.fillRect(0, 0, 16 * box, 16 * box)
+    context.fillStyle = "hsl(180, 50%, 70%)";
+    context.fillRect(0, 0, 18 * box, 18 * box)
 }
 
 function createSnake() {
     for (const pos in snake) {
-        context.fillStyle = '#50ffff'
+        context.fillStyle = '#ff8000'
         context.fillRect(snake[pos].x, snake[pos].y, box, box)
     }
 }
 
 function createFood() {
-    context.fillStyle = '#ff5050'
+    context.fillStyle = '#ff0000'
     context.fillRect(food.x, food.y, box, box)
 }
 
@@ -39,10 +39,10 @@ function updateDirection(event) {
 }
 
 function starGame() {
-    if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0
-    if (snake[0].x < 0 && direction == "left") snake[0].x = 16 * box
-    if (snake[0].y > 15 * box && direction == "up") snake[0].y = 0
-    if (snake[0].y < 0 && direction == "down") snake[0].y = 16 * box
+    if (snake[0].x > 17 * box && direction == "right") snake[0].x = 0
+    if (snake[0].x < 0 && direction == "left") snake[0].x = 18 * box
+    if (snake[0].y > 17 * box && direction == "up") snake[0].y = 0
+    if (snake[0].y < 0 && direction == "down") snake[0].y = 18 * box
 
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
@@ -65,8 +65,8 @@ function starGame() {
     if (snakeX != food.x || snakeY != food.y) {
         snake.pop()
     } else {
-        food.x = Math.floor(Math.random() * 15 + 1) * box
-        food.y = Math.floor(Math.random() * 15 + 1) * box
+        food.x = Math.floor(Math.random() * 17 + 1) * box
+        food.y = Math.floor(Math.random() * 17 + 1) * box
     }
 
     console.log(snakeX, snakeY)
