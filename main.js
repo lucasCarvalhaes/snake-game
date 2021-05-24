@@ -11,6 +11,7 @@ let food = {
     y: Math.floor(Math.random() * 17 + 1) * box
 }
 let direction = 'right'
+let score = 0
 
 function createBG() {
     context.fillStyle = "hsl(180, 50%, 70%)";
@@ -47,7 +48,8 @@ function starGame() {
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo)
-            alert('GAME OVER!!!')
+            const finalScore = document.querySelector('#score p').innerText
+            alert(`GAME OVER!!!\nHere's your final score: ${finalScore}. °O°`)
         }
     }
 
@@ -65,11 +67,11 @@ function starGame() {
     if (snakeX != food.x || snakeY != food.y) {
         snake.pop()
     } else {
+        score++
+        document.querySelector('#score p').innerText = score
         food.x = Math.floor(Math.random() * 17 + 1) * box
         food.y = Math.floor(Math.random() * 17 + 1) * box
     }
-
-    console.log(snakeX, snakeY)
 
     snake.unshift({ x: snakeX, y: snakeY })
 }
