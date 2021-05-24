@@ -69,8 +69,6 @@ function startGame() {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo)
             const finalScore = document.getElementById('score').innerText
-            document.getElementById('score').classList.toggle('finalScore')
-            document.querySelector('.score p').innerText = 'Final Score:'
             alert('GAME OVER!!!\nYour Score: ' + finalScore)
             location.reload()
         }
@@ -106,3 +104,5 @@ function restartSpeed() {
 }
 
 jogo = setInterval(startGame, getSpeed())
+
+// to do - refatorar kkkkkkkkk
