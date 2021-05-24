@@ -68,7 +68,7 @@ function starGame() {
         snake.pop()
     } else {
         score++
-        document.querySelector('#score p').innerText = score
+        document.querySelector('#score').innerText = score
         food.x = Math.floor(Math.random() * 17 + 1) * box
         food.y = Math.floor(Math.random() * 17 + 1) * box
     }
