@@ -14,11 +14,11 @@ body {
 header {
     display: flex;
     justify-content: space-between;
+    padding: 20px 0 20px 0;
 }
 
 h1 {
     color: black;
-    padding: 20px 0 20px 0;
     font-size: 1.8rem;
 }
 
@@ -32,7 +32,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0 5px;
     font-size: 0.9rem;
 }
 
@@ -41,19 +41,25 @@ h1 {
     justify-content: center;
     align-items: center;
     font-size: 0.7rem;
-    padding: 0 3px;
+    padding: 0 2px;
     border-right: 2px solid black;
     border-left: 2px solid black;
 }
 
 .menu label {
-    padding: 0 10px;
+    padding: 0 3px;
 }
 
-.menu label input {}
+.score {
+    font-size: 0.7rem;
+}
 
 #score {
     padding-left: 1.2rem;
     font-size: 1rem;
     font-weight: bold;
+}
+
+.finalScore {
+    color: #ff0000;
 }

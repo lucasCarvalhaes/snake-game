@@ -1,7 +1,7 @@
 const SPEEDS = {
-    FAST: 100,
-    MEDIUM: 150,
-    SLOW: 200
+    FAST: 85,
+    MEDIUM: 125,
+    SLOW: 175
 }
 
 let canvas = document.getElementById('snake')
@@ -40,7 +40,7 @@ function getSpeed() {
     const options = document.querySelectorAll('.menu label input')
     let speed = 'medium'
     for (const opt of options) {
-        opt.addEventListener('click', restart)
+        opt.addEventListener('change', restartSpeed)
         if (opt.checked) {
             speed = opt.value
         }
@@ -68,8 +68,11 @@ function startGame() {
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo)
-            const finalScore = document.querySelector('#score').innerText
-            alert(`GAME OVER!!!\nHere's your final score: ${finalScore}. °O°`)
+            const finalScore = document.getElementById('score').innerText
+            document.getElementById('score').classList.toggle('finalScore')
+            document.querySelector('.score p').innerText = 'Final Score:'
+            alert('GAME OVER!!!\nYour Score: ' + finalScore)
+            location.reload()
         }
     }
 
@@ -96,10 +99,10 @@ function startGame() {
     snake.unshift({ x: snakeX, y: snakeY })
 }
 
-function restart() {
+function restartSpeed() {
     document.getElementById('snake').focus()
     clearInterval(jogo)
-    setInterval(startGame, getSpeed())
+    jogo = setInterval(startGame, getSpeed())
 }
 
 jogo = setInterval(startGame, getSpeed())
