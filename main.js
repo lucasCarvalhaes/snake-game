@@ -16,7 +16,7 @@ let food = {
     x: Math.floor(Math.random() * 17 + 1) * box,
     y: Math.floor(Math.random() * 17 + 1) * box
 }
-let direction = 'right'
+let direction = ['right']
 let score = 0
 
 function createBG() {
@@ -50,22 +50,24 @@ function getSpeed() {
     if (speed == 'slow') return SPEEDS.SLOW
 }
 
-document.addEventListener('keydown', updateDirection)
+document.addEventListener("keydown", updateDirection)
 
 function updateDirection(event) {
-    if (event.keyCode == 37 && direction != 'right') direction = 'left'
-    if (event.keyCode == 38 && direction != 'up') direction = 'down'
-    if (event.keyCode == 39 && direction != 'left') direction = 'right'
-    if (event.keyCode == 40 && direction != 'down') direction = 'up'
+
+    if (event.keyCode == 37 && direction[direction.length - 1] != 'right') direction.push('left')
+    if (event.keyCode == 38 && direction[direction.length - 1] != 'up') direction.push('down')
+    if (event.keyCode == 39 && direction[direction.length - 1] != 'left') direction.push('right')
+    if (event.keyCode == 40 && direction[direction.length - 1] != 'down') direction.push('up')
+
 }
 
 function startGame() {
-    if (snake[0].x > 17 * box && direction == "right") snake[0].x = 0
-    if (snake[0].x < 0 && direction == "left") snake[0].x = 18 * box
-    if (snake[0].y > 17 * box && direction == "up") snake[0].y = 0
-    if (snake[0].y < 0 && direction == "down") snake[0].y = 18 * box
+    if (snake[0].x > 17 * box && direction[0] == "right") snake[0].x = 0
+    if (snake[0].x < 0 && direction[0] == "left") snake[0].x = 18 * box
+    if (snake[0].y > 17 * box && direction[0] == "up") snake[0].y = 0
+    if (snake[0].y < 0 && direction[0] == "down") snake[0].y = 18 * box
 
-    for (let i = 1; i < snake.length; i++) {
+    for (let i = 3; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo)
             const finalScore = document.getElementById('score').innerText
@@ -80,10 +82,12 @@ function startGame() {
     let snakeX = snake[0].x
     let snakeY = snake[0].y
 
-    if (direction == 'right') snakeX += box
-    if (direction == 'left') snakeX -= box
-    if (direction == 'up') snakeY += box
-    if (direction == 'down') snakeY -= box
+    if (direction[0] == 'right') snakeX += box
+    if (direction[0] == 'left') snakeX -= box
+    if (direction[0] == 'up') snakeY += box
+    if (direction[0] == 'down') snakeY -= box
+
+    direction.length > 1 ? direction.shift() : ''
 
     if (snakeX != food.x || snakeY != food.y) {
         snake.pop()
