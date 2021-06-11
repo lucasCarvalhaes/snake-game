@@ -27,7 +27,7 @@ function createBG() {
 function createSnake() {
     for (const pos in snake) {
         context.fillStyle = '#ff8000'
-        context.fillRect(snake[pos].x, snake[pos].y, box, box)
+        context.fillRect(snake[pos].x, snake[pos].y, box - 1, box - 1)
     }
 }
 
@@ -62,10 +62,21 @@ function updateDirection(event) {
 }
 
 function startGame() {
-    if (snake[0].x > 17 * box && direction[0] == "right") snake[0].x = 0
-    if (snake[0].x < 0 && direction[0] == "left") snake[0].x = 18 * box
-    if (snake[0].y > 17 * box && direction[0] == "up") snake[0].y = 0
-    if (snake[0].y < 0 && direction[0] == "down") snake[0].y = 18 * box
+    if (snake[0].x > 17 * box && direction == 'right') snake[0].x = 0
+    if (snake[0].x > 17 * box && direction == 'up') snake[0].x = 0
+    if (snake[0].x > 17 * box && direction == 'down') snake[0].x = 0
+
+    if (snake[0].x < 0 && direction == 'left') snake[0].x = 17 * box
+    if (snake[0].x < 0 && direction == 'up') snake[0].x = 17 * box
+    if (snake[0].x < 0 && direction == 'down') snake[0].x = 17 * box
+
+    if (snake[0].y > 17 * box && direction == 'up') snake[0].y = 0
+    if (snake[0].y > 17 * box && direction == 'right') snake[0].y = 0
+    if (snake[0].y > 17 * box && direction == 'left') snake[0].y = 0
+
+    if (snake[0].y < 0 && direction == 'down') snake[0].y = 17 * box
+    if (snake[0].y < 0 && direction == 'right') snake[0].y = 17 * box
+    if (snake[0].y < 0 && direction == 'left') snake[0].y = 17 * box
 
     for (let i = 3; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
