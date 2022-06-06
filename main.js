@@ -1,5 +1,5 @@
 const SPEEDS = {
-    FAST: 85,
+    FAST: 90,
     MEDIUM: 125,
     SLOW: 175
 }
