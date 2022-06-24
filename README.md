@@ -1,5 +1,5 @@
 # snake-game
 
-a snake game using canvas
+Jogo do snake usando apenas canvas
 
 <img src='./screenshot-snake.png'>

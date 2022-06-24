@@ -1,55 +1,83 @@
+import { gameSize } from "./util.js";
+
+const canvas = document.getElementById('snake')
+const context = canvas.getContext('2d')
+const box = 28
+let score = 0
+
 const SPEEDS = {
-    FAST: 90,
-    MEDIUM: 125,
-    SLOW: 175
+    ZOOM: box,
+    FAST: box * 2,
+    MEDIUM: box * 3,
+    SLOW: box * 4
 }
 
-let canvas = document.getElementById('snake')
-let context = canvas.getContext('2d')
-let box = 32
-let snake = []
-snake[0] = {
-    x: 8 * box,
-    y: 8 * box
+const MODE = {
+    VERY_HARD: 100,
+    HARD: 20,
+    NORMAL: 10,
+    EASY: 3
 }
+
+
+// Define a altura máxima do jogo menos uma margem
+canvas.height = gameSize(window.innerHeight, box) - (box * 3)
+canvas.width = canvas.height
+const boxResize = canvas.height / box
+
+// Posição Snake inicial
+let snake = [
+    {
+        x: 8 * box + box,
+        y: 8 * box + box
+    },
+    {
+        x: 8 * box,
+        y: 8 * box,
+    }
+]
+
+// Posição do food inicial
 let food = {
-    x: Math.floor(Math.random() * 17 + 1) * box,
-    y: Math.floor(Math.random() * 17 + 1) * box
+    x: Math.floor(Math.random() * (boxResize - 1) + 1) * box,
+    y: Math.floor(Math.random() * (boxResize - 1) + 1) * box
 }
-let direction = ['right']
-let score = 0
 
 function createBG() {
     context.fillStyle = "hsl(180, 50%, 70%)";
-    context.fillRect(0, 0, 18 * box, 18 * box)
+    context.fillRect(0, 0, boxResize * box, boxResize * box)
 }
 
 function createSnake() {
     for (const pos in snake) {
-        context.fillStyle = '#ff8000'
+        context.fillStyle = '#00b51a'
         context.fillRect(snake[pos].x, snake[pos].y, box - 1, box - 1)
     }
 }
 
 function createFood() {
     context.fillStyle = '#ff0000'
-    context.fillRect(food.x, food.y, box, box)
+    context.fillRect(food.x + (box / 6), food.y + (box / 6), box / 1.5, box / 1.5)
 }
 
 function getSpeed() {
     const options = document.querySelectorAll('.menu label input')
-    let speed = 'medium'
+    let speed = 'slow'
     for (const opt of options) {
         opt.addEventListener('change', restartSpeed)
         if (opt.checked) {
             speed = opt.value
         }
     }
+    if (speed == 'zoom') return SPEEDS.ZOOM
     if (speed == 'fast') return SPEEDS.FAST
     if (speed == 'medium') return SPEEDS.MEDIUM
     if (speed == 'slow') return SPEEDS.SLOW
 }
 
+
+// Mapeamento dos comandos de direção
+let direction = ['right']
 document.addEventListener("keydown", updateDirection)
 
 function updateDirection(event) {
@@ -61,22 +89,23 @@ function updateDirection(event) {
 
 }
 
+// função executada a cada frame
 function startGame() {
-    if (snake[0].x > 17 * box && direction == 'right') snake[0].x = 0
-    if (snake[0].x > 17 * box && direction == 'up') snake[0].x = 0
-    if (snake[0].x > 17 * box && direction == 'down') snake[0].x = 0
+    if (snake[0].x > (boxResize - 1) * box && direction == 'right') snake[0].x = 0
+    if (snake[0].x > (boxResize - 1) * box && direction == 'up') snake[0].x = 0
+    if (snake[0].x > (boxResize - 1) * box && direction == 'down') snake[0].x = 0
 
-    if (snake[0].x < 0 && direction == 'left') snake[0].x = 17 * box
-    if (snake[0].x < 0 && direction == 'up') snake[0].x = 17 * box
-    if (snake[0].x < 0 && direction == 'down') snake[0].x = 17 * box
+    if (snake[0].x < 0 && direction == 'left') snake[0].x = (boxResize - 1) * box
+    if (snake[0].x < 0 && direction == 'up') snake[0].x = (boxResize - 1) * box
+    if (snake[0].x < 0 && direction == 'down') snake[0].x = (boxResize - 1) * box
 
-    if (snake[0].y > 17 * box && direction == 'up') snake[0].y = 0
-    if (snake[0].y > 17 * box && direction == 'right') snake[0].y = 0
-    if (snake[0].y > 17 * box && direction == 'left') snake[0].y = 0
+    if (snake[0].y > (boxResize - 1) * box && direction == 'up') snake[0].y = 0
+    if (snake[0].y > (boxResize - 1) * box && direction == 'right') snake[0].y = 0
+    if (snake[0].y > (boxResize - 1) * box && direction == 'left') snake[0].y = 0
 
-    if (snake[0].y < 0 && direction == 'down') snake[0].y = 17 * box
-    if (snake[0].y < 0 && direction == 'right') snake[0].y = 17 * box
-    if (snake[0].y < 0 && direction == 'left') snake[0].y = 17 * box
+    if (snake[0].y < 0 && direction == 'down') snake[0].y = (boxResize - 1) * box
+    if (snake[0].y < 0 && direction == 'right') snake[0].y = (boxResize - 1) * box
+    if (snake[0].y < 0 && direction == 'left') snake[0].y = (boxResize - 1) * box
 
     for (let i = 3; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
@@ -105,19 +134,35 @@ function startGame() {
     } else {
         score++
         document.querySelector('#score').innerText = score
-        food.x = Math.floor(Math.random() * 17 + 1) * box
-        food.y = Math.floor(Math.random() * 17 + 1) * box
+        food.x = Math.floor(Math.random() * (boxResize - 1) + 1) * box
+        food.y = Math.floor(Math.random() * (boxResize - 1) + 1) * box
+    }
+
+
+    if (score == MODE.EASY) {
+        document.getElementById('medium').checked = true
+        restartSpeed()
+    }
+    if (score == MODE.NORMAL) {
+        document.getElementById('fast').checked = true
+        restartSpeed()
+    }
+    if (score >= MODE.HARD) {
+        document.getElementById('zoom').checked = true
+        restartSpeed()
     }
 
     snake.unshift({ x: snakeX, y: snakeY })
 }
 
+// Reinicia a velociadade do jogo
 function restartSpeed() {
     document.getElementById('snake').focus()
     clearInterval(jogo)
     jogo = setInterval(startGame, getSpeed())
 }
 
-jogo = setInterval(startGame, getSpeed())
+// Inicia o jogo e guarda a referência
+let jogo = setInterval(startGame, getSpeed())
 
 // to do - refatorar kkkkkkkkk

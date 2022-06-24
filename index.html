@@ -9,7 +9,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script defer src='main.js'></script>
+    <script defer src='main.js' type="module"></script>
 </head>
 
 <body>
@@ -17,8 +17,9 @@
         <header>
             <h1>SNAKE!</h1>
             <nav class="menu">
+                <label for="zoom">zoom<input type="radio" value="zoom" name="speed" id="zoom"></label>
                 <label for="fast">fast<input type="radio" value="fast" name="speed" id="fast"></label>
-                <label for="medium">medium<input type="radio" value="medium" name="speed" id="medium" checked></label>
+                <label for="medium">medium<input type="radio" value="medium" name="speed" id="medium"></label>
                 <label for="slow">slow<input type="radio" value="slow" name="speed" id="slow"></label>
             </nav>
             <div class="score">
